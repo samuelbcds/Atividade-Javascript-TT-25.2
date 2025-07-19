@@ -1,6 +1,6 @@
 /* 
 EJCM TT 25.1 - Exercicio JS
-Seu trabalho e criar um pequeno programa que deve processar as notas dos alunos, calcular a média da turma e determinar a situação de 
+Seu trabalho e criar um pequeno programa que deve processar as notas dos alunos, calcular a media da turma e determinar a situacao de 
 cada aluno. Para isso preencha o conteudo das funcoes: processarNotas(), calcularMediaNotas(), mostrarSituacaoAluno()
 
 Abaixo ha um template e instrucoes das funcoes para que voces preencham
