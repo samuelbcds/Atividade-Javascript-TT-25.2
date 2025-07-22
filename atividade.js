@@ -27,20 +27,48 @@ Abaixo da media da turma', '9.5': 'Aprovado e Acima da media da turma', '4.0': '
 
 
 function processarNotas(notasString){
-
+    let notasNumericas = notasString
+        .split(/[\s,;]+/)
+        .map(nota => parseFloat(nota));
+    //console.log(notasNumericas); usado para debug
     return notasNumericas
 }
 
 function calcularMediaNotas(notasString){
-
+    notasTransform = processarNotas(notasString);
+    let sum = 0;
+    for(nota of notasTransform){
+        sum = notasTransform[nota] +  sum;
+    }
+    mediaTurma = (sum/(notasTransform.length));
+    //console.log(mediaTurma); usado para debug
     return mediaTurma
 }
 
 function mostrarSituacaoAluno(notasString){
-
-    console.log(situacaoAluno)
+    const situacaoAluno = {};
+    const notas = processarNotas(notasString);
+    const media = calcularMediaNotas(notasString);
+    for (nota of notas){
+        if(nota > media){
+            if(nota > 5) {
+                situacaoAluno[nota] = 'Aprovado e Acima da media da turma';
+            }else {
+                situacaoAluno[nota] = 'Reprovado e Acima da media da turma';
+            }
+        }else {
+            if(nota > 5) {
+                situacaoAluno[nota] = 'Aprovado e Abaixo da media da turma';
+            }else {
+                situacaoAluno[nota] = 'Reprovado e Abaixo da media da turma';
+            }
+        }
+    }
+    console.log(situacaoAluno);
+    return situacaoAluno;
 }
 
 
 //Ao terminar remova o comentario da linha abaixo para que a funcao principal seja chamada e utilize node atividade.js no terminal
-//mostrarSituacaoAluno()
+let notasString = "7.5, 8.0, 6.2, 9.5, 4.0";
+mostrarSituacaoAluno(notasString);
