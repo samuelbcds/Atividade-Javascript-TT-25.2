@@ -28,19 +28,58 @@ Abaixo da media da turma', '9.5': 'Aprovado e Acima da media da turma', '4.0': '
 
 function processarNotas(notasString){
 
-    return notasNumericas
+    // Divide a string por vírgula, remove espaços e converte para número
+    // Retorna um array de números
+    return notasString.split(',').map(nota => parseFloat(nota.trim()));
 }
 
 function calcularMediaNotas(notasString){
-
-    return mediaTurma
+    // Processa as notas usando a função processarNotas
+    let notasNumericas = processarNotas(notasString);
+    
+    // Calcula a soma das notas
+    let somaNotas = notasNumericas.reduce((acumulador, nota)=>acumulador+ nota, 0);
+   
+    //Calcula a média das notas
+    let mediaTurma = somaNotas / notasNumericas.length;
+    
+    //retorna a média da turma
+    return mediaTurma;
 }
 
 function mostrarSituacaoAluno(notasString){
 
-    console.log(situacaoAluno)
+    // Processa as notas usando a função processarNotas
+    let notasNumericas = processarNotas(notasString);
+
+    // Calcula a média da turma
+    let mediaTurma = calcularMediaNotas(notasString);
+
+    // Cria um objeto para armazenar a situação de cada aluno
+    let situacaoAluno = {};
+
+    // Itera sobre as notas numéricas para determinar a situação de cada aluno
+    notasNumericas.forEach(nota => {
+        if (nota >= 5.0) {
+            if (nota >= mediaTurma) {
+                situacaoAluno[nota] = "Aprovado e Acima da media da turma";
+            } else {
+                situacaoAluno[nota] = "Aprovado e Abaixo da media da turma";
+            }
+        } else {
+            if (nota >= mediaTurma) {
+                situacaoAluno[nota] = "Reprovado e Acima da media da turma";
+            } else {
+                situacaoAluno[nota] = "Reprovado e Abaixo da media da turma";
+            }
+        }
+    });
+
+    // Exibe o objeto com a situação de cada aluno no console
+    console.log(situacaoAluno);
 }
 
 
 //Ao terminar remova o comentario da linha abaixo para que a funcao principal seja chamada e utilize node atividade.js no terminal
-//mostrarSituacaoAluno()
+let notasString = "7.5, 8.0, 6.2, 9.5, 4.0";
+mostrarSituacaoAluno(notasString);
