@@ -24,23 +24,47 @@ o console deve mostrar { '7.5': 'Aprovado e Acima da media da turma', '8.0': 'Ap
 Abaixo da media da turma', '9.5': 'Aprovado e Acima da media da turma', '4.0': 'Reprovado e Abaixo da media da turma' }
 */
 
-
-
-function processarNotas(notasString){
-
-    return notasNumericas
+function processarNotas(notasString) {
+    const notasEmString = notasString.split(', ');
+    const notasNumericas = [];
+    for (let i = 0; i < notasEmString.length; i++) {
+        notasNumericas.push(parseFloat(notasEmString[i]));
+    }
+    return notasNumericas;
 }
 
-function calcularMediaNotas(notasString){
-
-    return mediaTurma
+function calcularMediaNotas(notasString) {
+    const notasEmString = notasString.split(', ');
+    let somaDasNotas = 0;
+    for (let i = 0; i < notasEmString.length; i++) {
+        somaDasNotas += parseFloat(notasEmString[i]);
+    }
+    const mediaTurma = somaDasNotas / notasEmString.length;
+    return mediaTurma;
 }
 
 function mostrarSituacaoAluno(notasString){
+    const mediaTurma = calcularMediaNotas(notasString);
+    const situacaoAluno = {};
+    const notasNumericas = processarNotas(notasString);
 
-    console.log(situacaoAluno)
+    for(let i = 0; i < notasNumericas.length; i++){
+        let notaAtual = notasNumericas[i];
+
+        if (notaAtual >= 5.0 && notaAtual > mediaTurma) {
+            situacaoAluno[notaAtual] = "Aprovado e Acima da media da turma";
+        } else if (notaAtual >= 5.0 && notaAtual <= mediaTurma) { 
+            situacaoAluno[notaAtual] = "Aprovado e Abaixo da media da turma";
+        } else if (notaAtual < 5.0 && notaAtual > mediaTurma) {
+            situacaoAluno[notaAtual] = "Reprovado e Acima da media da turma";
+        } else {
+            situacaoAluno[notaAtual] = "Reprovado e Abaixo da media da turma";
+        }
+    }
+    
+    console.log(situacaoAluno);
 }
 
-
 //Ao terminar remova o comentario da linha abaixo para que a funcao principal seja chamada e utilize node atividade.js no terminal
-//mostrarSituacaoAluno()
+    let notasString = "7.5, 8.0, 6.2, 9.5, 4.0"
+    mostrarSituacaoAluno(notasString)
