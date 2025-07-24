@@ -1,46 +1,60 @@
-/* 
-EJCM TT 25.1 - Exercicio JS
-Seu trabalho e criar um pequeno programa que deve processar as notas dos alunos, calcular a media da turma e determinar a situacao de 
-cada aluno. Para isso preencha o conteudo das funcoes: processarNotas(), calcularMediaNotas(), mostrarSituacaoAluno()
-
-Abaixo ha um template e instrucoes das funcoes para que voces preencham
-
-
-
-
-A funcao processarNotas() ira receber uma String notasString e mostrar um array de numeros notasNumericas
-
-A funcao calcularMediaNotas() ira receber uma String notasString e ira retornar um numero mediaTurma
-
-A funcao mostrarSituacaoAluno() ira receber uma String notasString e ira mostrar no terminal um Object situacaoAluno onde a Key devera 
-ser a nota do aluno e o Value devera ser uma String "Aprovado e Acima da media da turma", "Reprovado e Acima da media da turma", 
-"Aprovado e Abaixo da media da turma" ou "Reprovado e Abaixo da media da turma". Alunos com nota igual ou maior que 5.0 estarao 
-Aprovados
-
-
-
-Exemplo: para let notasString = "7.5, 8.0, 6.2, 9.5, 4.0";
-o console deve mostrar { '7.5': 'Aprovado e Acima da media da turma', '8.0': 'Aprovado e Acima da media da turma', '6.2': 'Aprovado e 
-Abaixo da media da turma', '9.5': 'Aprovado e Acima da media da turma', '4.0': 'Reprovado e Abaixo da media da turma' }
-*/
-
-
-
 function processarNotas(notasString){
+ 
+    let notaAtual="", notasNumericas=[];
 
+    for(let i = 0; i < notasString.length; i++){
+        
+        notaAtual+=notasString[i];
+        if(notasString[i+1]==','|| i == notasString.length-1){
+
+            i+=2;
+            notasNumericas.push(parseFloat(notaAtual)); 
+            notaAtual="";
+        }
+    }
     return notasNumericas
 }
 
 function calcularMediaNotas(notasString){
+
+  let notasTurma =  processarNotas(notasString);
+  let mediaTurma = 0;
+
+    for(let i = 0; i < notasTurma.length; i++){
+        mediaTurma+=notasTurma[i];
+    }
+
+    mediaTurma=mediaTurma/notasTurma.length;
 
     return mediaTurma
 }
 
 function mostrarSituacaoAluno(notasString){
 
-    console.log(situacaoAluno)
+    let notasTurma = processarNotas(notasString), mediaTurma=calcularMediaNotas(notasString);
+    let situacaoAluno="";
+
+    for(let i = 0; i < notasTurma.length; i++){
+        if(notasTurma[i] >= 5){
+            situacaoAluno += notasTurma[i] + ": Aprovado e ";
+        }
+        else{
+            situacaoAluno += notasTurma[i] + ": Reprovado e ";
+        }
+
+        if(notasTurma[i] > mediaTurma){
+            situacaoAluno+="acima da media da turma ";
+        }
+        else if(notasTurma[i] < mediaTurma){
+            situacaoAluno+="abaixo da media da turma ";
+        }
+        else{
+            situacaoAluno+="dentro da media da turma ";
+        }
+        console.log(situacaoAluno);
+        situacaoAluno="";
+    }
 }
 
 
-//Ao terminar remova o comentario da linha abaixo para que a funcao principal seja chamada e utilize node atividade.js no terminal
-//mostrarSituacaoAluno()
+mostrarSituacaoAluno("7.5, 8.0, 6.2, 9.5, 4.0");
