@@ -24,23 +24,47 @@ o console deve mostrar { '7.5': 'Aprovado e Acima da media da turma', '8.0': 'Ap
 Abaixo da media da turma', '9.5': 'Aprovado e Acima da media da turma', '4.0': 'Reprovado e Abaixo da media da turma' }
 */
 
-
+let notasString = "7.5, 8.0, 6.2, 9.5, 4.0"
 
 function processarNotas(notasString){
+    let notasNumericas = notasString.split(",").map(nota => Number(nota.trim()))
 
     return notasNumericas
 }
 
 function calcularMediaNotas(notasString){
+    let notasNumericas = processarNotas(notasString)
+    let somaNotas = 0
+
+    for(let i = 0; i < notasNumericas.length; i++){
+        somaNotas += notasNumericas[i]
+    }
+
+    let mediaTurma = somaNotas / notasNumericas.length
 
     return mediaTurma
 }
 
 function mostrarSituacaoAluno(notasString){
+    let notasNumericas = processarNotas(notasString)
+    let mediaTurma = calcularMediaNotas(notasString)
+    let situacaoAluno = {}
+    const notaAprovacao = 5.0
+
+    for(let i = 0; i < notasNumericas.length; i++){
+        if(notasNumericas[i] < notaAprovacao && notasNumericas[i] < mediaTurma)
+            situacaoAluno[notasNumericas[i]] = "Reprovado e Abaixo da media da turma"
+        else if(notasNumericas[i] < notaAprovacao && notasNumericas[i] >= mediaTurma)
+            situacaoAluno[notasNumericas[i]] = "Reprovado e Acima da media da turma"
+        else if(notasNumericas[i] >= notaAprovacao && notasNumericas[i] < mediaTurma)
+            situacaoAluno[notasNumericas[i]] = "Aprovado e Abaixo da media da turma"
+        else
+            situacaoAluno[notasNumericas[i]] = "Aprovado e Acima da media da turma"
+    }
 
     console.log(situacaoAluno)
 }
 
 
 //Ao terminar remova o comentario da linha abaixo para que a funcao principal seja chamada e utilize node atividade.js no terminal
-//mostrarSituacaoAluno()
+mostrarSituacaoAluno(notasString)
