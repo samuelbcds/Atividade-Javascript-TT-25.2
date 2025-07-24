@@ -24,23 +24,51 @@ o console deve mostrar { '7.5': 'Aprovado e Acima da media da turma', '8.0': 'Ap
 Abaixo da media da turma', '9.5': 'Aprovado e Acima da media da turma', '4.0': 'Reprovado e Abaixo da media da turma' }
 */
 
-
+let notasString = "7.5, 8.0, 6.2, 9.5, 4.0";
 
 function processarNotas(notasString){
+    const notasNumericas = notasString.split(',').map(parseFloat);
 
     return notasNumericas
 }
 
 function calcularMediaNotas(notasString){
-
+    const notasNumericas = processarNotas(notasString)
+    let mediaTurma = 0
+    for(let i = 0; i < notasNumericas.length; i++){
+        mediaTurma += notasNumericas[i]
+    }
+    mediaTurma /= notasNumericas.length
     return mediaTurma
 }
 
 function mostrarSituacaoAluno(notasString){
+    const mediaDaTurma = calcularMediaNotas(notasString)
+    const notasDosAlunos = processarNotas(notasString)
 
-    console.log(situacaoAluno)
+    let situacaoAlunos = {}
+
+    for(const nota of notasDosAlunos){
+        let situacaoAprovacao;
+        let situacaoMedia;
+        
+        if (nota >= 5.0) {
+            situacaoAprovacao = "Aprovado";
+        } else {
+            situacaoAprovacao = "Reprovado";
+        }
+        
+        if (nota > mediaDaTurma) {
+            situacaoMedia = "Acima da media da turma";
+        } else {
+            situacaoMedia = "Abaixo da media da turma";
+        }
+
+        situacaoAlunos[nota] = `${situacaoAprovacao} e ${situacaoMedia}`;
+    }
+    console.log(situacaoAlunos)
 }
 
 
 //Ao terminar remova o comentario da linha abaixo para que a funcao principal seja chamada e utilize node atividade.js no terminal
-//mostrarSituacaoAluno()
+mostrarSituacaoAluno(notasString)
