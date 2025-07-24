@@ -47,8 +47,24 @@ function calcularMediaNotas(notasString){
 }
 
 function mostrarSituacaoAluno(notasString){
-
-    console.log(situacaoAluno)
+    let mediaTurma = calcularMediaNotas(notasString);
+    let notasNumericas = processarNotas(notasString);
+    let situacaoAluno = {};
+    for(let nota of notasNumericas){
+        if(nota >= 5 && nota >= mediaTurma){
+            situacaoAluno[nota.toString()] = 'Aprovado e acima da média da turma';
+        }
+        else if(nota < 5 && nota >= mediaTurma){
+            situacaoAluno[nota.toString()] = 'Reprovado e acima da média da turma';
+        }
+        else if(nota < 5 && nota < mediaTurma){
+            situacaoAluno[nota.toString()] = 'Reprovado e abaixo da média da turma';
+        }   
+        else if(nota >= 5 && nota < mediaTurma){
+            situacaoAluno[nota.toString()] = 'Aprovado e abaixo da média da turma';
+        }        
+    }
+    console.log(situacaoAluno);
 }
 
 
