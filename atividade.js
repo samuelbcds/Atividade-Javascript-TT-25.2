@@ -27,8 +27,13 @@ Abaixo da media da turma', '9.5': 'Aprovado e Acima da media da turma', '4.0': '
 
 
 function processarNotas(notasString){
-
-    return notasNumericas
+    let notasSeparadas = notasString.split(",");
+    let notasNumericas = [];
+    for (let nota of notasSeparadas){
+        let notaTemp = Number(nota);
+        notasNumericas.push(notaTemp);
+    }
+    return notasNumericas;
 }
 
 function calcularMediaNotas(notasString){
