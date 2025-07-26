@@ -46,7 +46,9 @@ function calcularMediaNotas(notasString){
     return mediaTurma
 }
 
-function mostrarSituacaoAluno(notasString){
+function mostrarSituacaoAluno(){
+    //modifiquei a chamada da função para ser possível passar o argumento pelo terminal
+    let notasString = process.argv[2]
     let mediaTurma = calcularMediaNotas(notasString);
     let notasNumericas = processarNotas(notasString);
     let situacaoAluno = {};
@@ -69,4 +71,4 @@ function mostrarSituacaoAluno(notasString){
 
 
 //Ao terminar remova o comentario da linha abaixo para que a funcao principal seja chamada e utilize node atividade.js no terminal
-//mostrarSituacaoAluno()
+mostrarSituacaoAluno()
