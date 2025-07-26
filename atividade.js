@@ -27,20 +27,48 @@ Abaixo da media da turma', '9.5': 'Aprovado e Acima da media da turma', '4.0': '
 
 
 function processarNotas(notasString){
-
-    return notasNumericas
+    let notasSeparadas = notasString.split(",");
+    let notasNumericas = [];
+    for (let nota of notasSeparadas){
+        let notaTemp = Number(nota);
+        notasNumericas.push(notaTemp);
+    }
+    return notasNumericas;
 }
 
 function calcularMediaNotas(notasString){
-
+    let notasNumericas = processarNotas(notasString);
+    let somaNotas = 0;
+    for(let nota of notasNumericas){
+        somaNotas += nota;
+    }
+    mediaTurma = somaNotas/notasNumericas.length;
     return mediaTurma
 }
 
-function mostrarSituacaoAluno(notasString){
-
-    console.log(situacaoAluno)
+function mostrarSituacaoAluno(){
+    //modifiquei a chamada da função para ser possível passar o argumento pelo terminal
+    let notasString = process.argv[2]
+    let mediaTurma = calcularMediaNotas(notasString);
+    let notasNumericas = processarNotas(notasString);
+    let situacaoAluno = {};
+    for(let nota of notasNumericas){
+        if(nota >= 5 && nota >= mediaTurma){
+            situacaoAluno[nota.toString()] = 'Aprovado e acima da média da turma';
+        }
+        else if(nota < 5 && nota >= mediaTurma){
+            situacaoAluno[nota.toString()] = 'Reprovado e acima da média da turma';
+        }
+        else if(nota < 5 && nota < mediaTurma){
+            situacaoAluno[nota.toString()] = 'Reprovado e abaixo da média da turma';
+        }   
+        else if(nota >= 5 && nota < mediaTurma){
+            situacaoAluno[nota.toString()] = 'Aprovado e abaixo da média da turma';
+        }        
+    }
+    console.log(situacaoAluno);
 }
 
 
 //Ao terminar remova o comentario da linha abaixo para que a funcao principal seja chamada e utilize node atividade.js no terminal
-//mostrarSituacaoAluno()
+mostrarSituacaoAluno()
